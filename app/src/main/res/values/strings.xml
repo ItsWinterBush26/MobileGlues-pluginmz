@@ -2,12 +2,12 @@
     <string name="app_name">MobileGlues</string>
 
     <string name="info_author" translatable="false">Swung, BZLZHH, Tungsten</string>
-    <string name="info_copyright" translatable="false">Copyright © 2025 Swung0x48, BZLZHH, Tungsten. All rights reserved.\nLogo artwork kindly provided by Aou156.</string>
+    <string name="info_copyright" translatable="false">GNU LGPL-2.1 License</string>
     <string name="info_launcher" translatable="false">Fold Craft Launcher (>=1.2.0.5)\nZalith Launcher (>=1.4.0)\nPojav Glow·Worm (>=20250211)</string>
 
     <string name="view_version">Version: </string>
     <string name="view_author">Author: </string>
-    <string name="view_copyright">Copyright: </string>
+    <string name="view_copyright">License: </string>
     <string name="view_launcher">Compatible Launchers: </string>
 
     <string name="open_options">Modify renderer settings</string>
@@ -15,7 +15,7 @@
     <string name="clear_permission">Reset folder authorization</string>
 
     <string name="option_glsl_cache">Max glsl cache size (enter -1 to disable)</string>
-    <string name="option_glsl_cache_helper">Unit: GigaByte (MB)</string>
+    <string name="option_glsl_cache_helper">Unit: Megabytes (MB)</string>
     <string name="option_angle">Use ANGLE as OpenGL ES driver</string>
     <string name="option_angle_disable_if_possible">Disable if possible</string>
     <string name="option_angle_enable_if_possible">Enable if possible</string>

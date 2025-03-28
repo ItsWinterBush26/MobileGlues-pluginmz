@@ -1,14 +1,16 @@
 MobileGlues
 ====
-Please see [MobileGlues-release](https://github.com/Swung0x48/MobileGlues-release) to get more information.
+Please see [MobileGlues](https://github.com/MobileGL-Dev/MobileGlues) and [MobileGlues-release](https://github.com/MobileGL-Dev/MobileGlues-release) to get more information.
 
-LICENSE
+License
 ====
-Before checking out this project, you must comply with the [LICENSE](https://github.com/Swung0x48/MobileGlues-plugin/blob/main/LICENSE.md).
+MobileGlues is licensed under **GNU LGPL-2.1 License**.
+
+Please see [LICENSE](https://github.com/MobileGL-Dev/MobileGlues-plugin/blob/main/LICENSE).
 
 Third party components
 ====
-Please see [MobileGlues-release](https://github.com/Swung0x48/MobileGlues-release).
+Please see [MobileGlues-release](https://github.com/MobileGL-Dev/MobileGlues-release).
 
 Check signature of your release
 ====
