@@ -1,5 +1,5 @@
 Fork Of 
-MobileGlues
+MobileGlues Plugin
 ====
 Please see [MobileGlues](https://github.com/MobileGL-Dev/MobileGlues) and [MobileGlues-release](https://github.com/MobileGL-Dev/MobileGlues-release) to get more information.
 
@@ -11,6 +11,7 @@ Please see [LICENSE](https://github.com/MobileGL-Dev/MobileGlues-plugin/blob/mai
 
 Third party components
 ====
+please see [MobileGlues](https://github.com/MobileGL-Dev/MobileGlues)
 Please see [MobileGlues-release](https://github.com/MobileGL-Dev/MobileGlues-release).
 
 Check signature of your release
