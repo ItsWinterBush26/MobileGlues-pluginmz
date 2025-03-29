@@ -23,7 +23,7 @@ jobs:
       - name: Set Up JDK
         uses: actions/setup-java@v4
         with:
-          distribution: 'zulu'
+          distribution: 'temurin'
           java-version: '17'
           cache: 'gradle'
 
@@ -43,6 +43,7 @@ jobs:
 
       - name: Upload apk
         uses: actions/upload-artifact@v4
+        if: startsWith(github.ref, 'refs/tags/') != true
         with:
-          name: ${{ env.repository_name }}_${{ env.date_today }}_${{ github.sha }}
-          path: app/build/outputs/apk/release/
+          name: output-aar}
+          path: app/build/outputs/aar/release/
