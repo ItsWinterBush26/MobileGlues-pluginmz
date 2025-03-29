@@ -18,4 +18,4 @@ please see [LTW](https://github.com/PojavLauncherTeam/Ltw)some ltw codes like xm
 # Building
 `./gradlew :MGR:assembleRelease`
 
-After completion, an AAR with native libraries will be available in `MGR/build/outputs/aar/MGR-release.aar
+After completion, an AAR with native libraries will be available in `MGR/build/outputs/aar/MGR-release.aa`
