@@ -13,6 +13,8 @@ Third party components
 ====
 please see [MobileGlues](https://github.com/MobileGL-Dev/MobileGlues)
 Please see [MobileGlues-release](https://github.com/MobileGL-Dev/MobileGlues-release).
+some ltw codes like xml build.gradle were used and modified
+please see [LTW](https://github.com/PojavLauncherTeam/Ltw)
 
 Check signature of your release
 ====
