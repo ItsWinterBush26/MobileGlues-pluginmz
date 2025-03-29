@@ -54,3 +54,5 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         with: 
          files: MGR/build/outputs/aar/*.aar
+        env:
+           GITHUB_TOKEN: ${{ secrets.MY_PAT }}
