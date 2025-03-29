@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 
 android {
-    namespace 'com.swung0x48.mobileglues'
+    namespace 'com.fcl.plugin.mobileglues'
     compileSdk 34
 
     defaultConfig {
