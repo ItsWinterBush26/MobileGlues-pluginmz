@@ -1,57 +1,102 @@
 package com.fcl.plugin.mobileglues;
 
+import android.content.Context;
+import android.net.Uri;
+import android.os.Build;
+import androidx.annotation.Nullable;
 
-import android.app.Activity;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
-import android.os.Bundle;
-import android.util.Log;
+import com.fcl.plugin.mobileglues.settings.FolderPermissionManager;
+import com.fcl.plugin.mobileglues.utils.Constants;
 
-import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class MainActivity extends Activity {
+import android.opengl.EGL14;
+import android.opengl.EGLConfig;
+import android.opengl.EGLContext;
+import android.opengl.EGLDisplay;
+import android.opengl.EGLSurface;
+import android.opengl.GLES20;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        PackageManager packageManager = getPackageManager();
-        ApplicationInfo myAppInfo = getApplicationInfo();
-        ApplicationInfo targetAppInfo = getAppicationInfo(packageManager);
-        if(targetAppInfo == null) {
-            finish();
-            return;
-        }
-        String copySrc = myAppInfo.nativeLibraryDir;
-        String copyDst = targetAppInfo.nativeLibraryDir;
-        if(copySrc == null || copyDst == null || copySrc.isEmpty() || copyDst.isEmpty()) {
-            Log.e("GL4ES-W", "Wrong source or destination!");
-            Log.e("GL4ES-W", "Source: "+copySrc);
-            Log.e("GL4ES-W", "Destination: "+copyDst);
-            finish();
-            return;
-        }
-        String copyCommand = "cp " + copySrc + "/* "+copyDst+"/";
-        try {
-            Runtime.getRuntime().exec("am force-stop "+targetAppInfo.packageName);
-            ProcessBuilder processBuilder = new ProcessBuilder("su", "-c", copyCommand);
-            Process process = processBuilder.start();
-            int errorCode = process.waitFor();
-            if(errorCode == 0) {
-                startActivity(packageManager.getLaunchIntentForPackage(targetAppInfo.packageName));
-            }else {
-                Log.e("GL4ES-W", "Copying failed with error code "+errorCode);
-            }
-        }catch (Exception e) {
-            Log.e("GL4ES-W", "Failed to copy files!", e);
-        }
-        finish();
+public class Main {
+    // EGL variables
+    private EGLDisplay eglDisplay;
+    private EGLContext eglContext;
+    private EGLSurface eglSurface;
+
+    // Manually set configuration values
+    private int enableANGLE = 3;
+    private int enableNoError = 0;
+    private int maxGlslCacheSize = 64;
+
+    public void initialize() {
+        if (enableANGLE > 3 || enableANGLE < 0)
+            enableANGLE = 0;
+        if (enableNoError > 3 || enableNoError < 0)
+            enableNoError = 0;
+        
+        if (maxGlslCacheSize == 0)
+            maxGlslCacheSize = 64;
+
+        Logger.getLogger("MG").log(Level.INFO, "Configuration initialized with values: " +
+                "EnableANGLE=" + enableANGLE + ", EnableNoError=" + enableNoError + 
+                ", MaxGlslCacheSize=" + maxGlslCacheSize);
+
+        initEGL();
     }
 
-    public ApplicationInfo getAppicationInfo(PackageManager packageManager) {
-        try {
-            return packageManager.getApplicationInfo("net.kdt.pojavlaunch.debug", PackageManager.GET_SHARED_LIBRARY_FILES);
-        }catch (PackageManager.NameNotFoundException e) {
-            return null;
+    private void initEGL() {
+        eglDisplay = EGL14.eglGetDisplay(EGL14.EGL_DEFAULT_DISPLAY);
+        int[] version = new int[2];
+        EGL14.eglInitialize(eglDisplay, version, 0, version, 1);
+
+        int[] configAttribs = {
+                EGL14.EGL_RED_SIZE, 8,
+                EGL14.EGL_GREEN_SIZE, 8,
+                EGL14.EGL_BLUE_SIZE, 8,
+                EGL14.EGL_ALPHA_SIZE, 8,
+                EGL14.EGL_RENDERABLE_TYPE, EGL14.EGL_OPENGL_ES2_BIT,
+                EGL14.EGL_NONE
+        };
+        EGLConfig[] configs = new EGLConfig[1];
+        int[] numConfigs = new int[1];
+        EGL14.eglChooseConfig(eglDisplay, configAttribs, 0, configs, 0, 1, numConfigs, 0);
+
+        EGLConfig eglConfig = configs[0];
+
+        int[] contextAttribs = {
+                EGL14.EGL_CONTEXT_CLIENT_VERSION, 2,
+                EGL14.EGL_NONE
+        };
+        eglContext = EGL14.eglCreateContext(eglDisplay, eglConfig, EGL14.EGL_NO_CONTEXT, contextAttribs, 0);
+
+        int[] surfaceAttribs = { EGL14.EGL_NONE };
+        eglSurface = EGL14.eglCreatePbufferSurface(eglDisplay, eglConfig, surfaceAttribs, 0);
+
+        EGL14.eglMakeCurrent(eglDisplay, eglSurface, eglSurface, eglContext);
+
+        Logger.getLogger("MG").log(Level.INFO, "EGL initialized successfully.");
+    }
+
+    private void checkPermissionSilently() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            MGDirectoryUri = folderPermissionManager.getMGFolderUri();
+            if (MGDirectoryUri != null) {
+                initialize();
+            }
+        } else {
+            initialize();
         }
+    }
+
+    public void render() {
+        GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
+    }
+
+    public void cleanup() {
+        EGL14.eglDestroySurface(eglDisplay, eglSurface);
+        EGL14.eglDestroyContext(eglDisplay, eglContext);
+        EGL14.eglTerminate(eglDisplay);
     }
 }
