@@ -22,6 +22,11 @@ android {
         }
     }
 
+    compileOptions {  // Move compileOptions here
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     applicationVariants.all { variant ->
         variant.resValue("string", "app_name", "MobileGlues")
 
@@ -32,11 +37,6 @@ android {
             pojavEnv : "LIBGL_ES=3:DLOPEN=libspirv-cross-c-shared.so,libshaderconv.so:POJAV_RENDERER=opengles3"
         ]
     }
-}
-
-compileOptions {
-    sourceCompatibility JavaVersion.VERSION_1_8
-    targetCompatibility JavaVersion.VERSION_1_8
 }
 
 dependencies {
