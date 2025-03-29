@@ -16,6 +16,6 @@ Please see [MobileGlues-release](https://github.com/MobileGL-Dev/MobileGlues-rel
 please see [LTW](https://github.com/PojavLauncherTeam/Ltw)some ltw codes like xml build.gradle were used and modified
 
 # Building
-`./gradlew :ltw:assembleRelease`
+`./gradlew :MGR:assembleRelease`
 
-After completion, an AAR with native libraries will be available in `ltw/build/outputs/aar/ltw-release.aar`
+After completion, an AAR with native libraries will be available in `MGR/build/outputs/aar/MGR-release.aar
