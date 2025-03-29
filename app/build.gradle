@@ -7,7 +7,7 @@ android {
     compileSdk 33
 
     defaultConfig {
-        applicationId "co.fcl.plugin.mobilrglues"
+        applicationId "com.fcl.plugin.mobilrglues"
         minSdk 21
         targetSdk 33
         versionCode 1
