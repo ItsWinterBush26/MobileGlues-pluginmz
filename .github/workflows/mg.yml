@@ -41,12 +41,16 @@ jobs:
       - name: Build apk
         run: ./gradlew :MGR:assembleRelease
 
-      - name: output-aar
-        path: MGR/build/outputs/aar/*.aar
+      - name: Upload AAR
+        uses: actions/upload-artifact@v4.6.0
+        if: startsWith(github.ref, 'refs/tags/') != true
+        with:
+         name: output-aar
+         path: MGR/build/outputs/aar/ltw-release.aar
          if-no-files-found: error
          retention-days: 7
-    - name: Create Release
-      uses: softprops/action-gh-release@v2
-      if: startsWith(github.ref, 'refs/tags/')
-      with: 
-        files: MGR/build/outputs/aar/*.aar
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with: 
+         files: MGR/build/outputs/aar/ltw-release.aar
