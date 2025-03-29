@@ -1,4 +1,4 @@
-name: MobileGlues
+name: MobileGlues-Aar
 
 on:
   push:
@@ -46,11 +46,11 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/') != true
         with:
          name: output-aar
-         path: MGR/build/outputs/aar/ltw-release.aar
+         path: MGR/build/outputs/aar/*.aar
          if-no-files-found: error
          retention-days: 7
       - name: Create Release
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with: 
-         files: MGR/build/outputs/aar/ltw-release.aar
+         files: MGR/build/outputs/aar/*.aar
