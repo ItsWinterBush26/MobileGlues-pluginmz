@@ -19,12 +19,6 @@ android {
             ndk {
                 abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
             }
-        }
-        debug {
-            ndk {
-                abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
-            }
-        }
     }
 
     externalNativeBuild {
@@ -38,13 +32,6 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-        proguard {
-            minifyEnabled true
-            initWith debug
-        }
-        fordebug {
-            debuggable true
         }
     }
     
