@@ -21,40 +21,23 @@ android {
             signingConfig signingConfigs.debug
         }
     }
-    configureEach {
-            resValue("string","app_name","MobileGlues")
 
-            manifestPlaceholders["des"] = "MobileGlues (OpenGL 4.0, 1.17+)"
-            manifestPlaceholders["renderer"] = "MobileGlues:libmobileglues.so:libEGL.so"
+    applicationVariants.all { variant ->
+        variant.resValue("string", "app_name", "MobileGlues")
 
-            manifestPlaceholders["boatEnv"] = mutableMapOf<String,String>().apply {
-                put("LIBGL_ES", "3")
-                put("DLOPEN", "libspirv-cross-c-shared.so,libshaderconv.so")
-            }.run {
-                var env = ""
-                forEach { (key, value) ->
-                    env += "$key=$value:"
-                }
-                env.dropLast(1)
-            }
-            manifestPlaceholders["pojavEnv"] = mutableMapOf<String,String>().apply {
-                put("LIBGL_ES", "3")
-                put("DLOPEN", "libspirv-cross-c-shared.so,libshaderconv.so")
-                put("POJAV_RENDERER", "opengles3")
-            }.run {
-                var env = ""
-                forEach { (key, value) ->
-                    env += "$key=$value:"
-                }
-                env.dropLast(1)
-            }
-        }
+        variant.manifestPlaceholders = [
+            des      : "MobileGlues (OpenGL 4.0, 1.17+)",
+            renderer : "MobileGlues:libmobileglues.so:libEGL.so",
+            boatEnv  : "LIBGL_ES=3:DLOPEN=libspirv-cross-c-shared.so,libshaderconv.so",
+            pojavEnv : "LIBGL_ES=3:DLOPEN=libspirv-cross-c-shared.so,libshaderconv.so:POJAV_RENDERER=opengles3"
+        ]
+    }
 }
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
+compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+}
 
 dependencies {
     implementation project(path: ':MGR')
